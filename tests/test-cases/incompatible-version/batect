@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+# Unused in script - used by proxy script to determine version
+VERSION="0.61.1"
+
+echo "This script should never be invoked!" > /dev/stderr
+exit 1

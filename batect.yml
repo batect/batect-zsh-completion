@@ -1,0 +1,111 @@
+containers:
+  editorconfig-checker:
+    image: mstruebing/editorconfig-checker:2.2.0
+    volumes:
+      - local: .
+        container: /code
+        options: ro
+    working_directory: /code
+
+  yamllint:
+    build_directory: .batect/yamllint
+    volumes:
+      - local: .
+        container: /code
+        options: ro
+    working_directory: /code
+
+  yapf:
+    build_directory: .batect/yapf
+    volumes:
+      - local: .
+        container: /code
+        options: ro
+    working_directory: /code
+
+  test-env:
+    build_directory: .batect/test-env
+    volumes:
+      - local: completions/_batect
+        container: /usr/share/zsh/site-functions/_batect
+        options: ro
+      - local: tests
+        container: /tests
+        options: ro
+
+  release-env:
+    build_directory: .batect/release-env
+    volumes:
+      - local: .
+        container: /code
+        options: ro
+    working_directory: /code
+
+tasks:
+  check-format:
+    description: Run all formatting check tasks.
+    group: Formatting check tasks
+    prerequisites:
+      - check-format:*
+
+  check-format:editorconfig-compliance:
+    description: Check formatting of all files against the configuration in .editorconfig.
+    group: Formatting check tasks
+    run:
+      container: editorconfig-checker
+      command: ec
+
+  check-format:python:
+    description: Check formatting of Python code.
+    group: Formatting check tasks
+    run:
+      container: yapf
+      command: yapf --diff --recursive .
+
+  check-format:yaml:
+    description: Check formatting of all YAML files.
+    group: Formatting check tasks
+    run:
+      container: yamllint
+      command: yamllint --strict .
+
+  lint:
+    description: Run all linting tasks.
+    group: Linting tasks
+    prerequisites:
+      - lint:*
+
+  test:
+    description: Run the tests.
+    group: Testing tasks
+    run:
+      container: test-env
+      command: ./tests.py
+      working_directory: /tests
+
+  test-shell:
+    description: Start a zsh shell in the test environment.
+    group: Utility tasks
+    run:
+      container: test-env
+      command: zsh
+      working_directory: /tests
+
+  validate-release:
+    description: Validate that the current state of the repository is suitable for releasing.
+    group: Release tasks
+    run:
+      container: release-env
+      command: ./scripts/validate_version.sh
+
+  check-release-env:
+    description: Test that the release environment still builds (it's only used whenever we release, but finding out that packages are outdated at that point is too late).
+    group: Release tasks
+    run:
+      container: release-env
+      command: echo OK!
+
+include:
+  - type: git
+    repo: https://github.com/batect/hadolint-bundle.git
+    ref: 0.3.0

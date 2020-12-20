@@ -1,0 +1,4 @@
+{
+  "extends": ["github>batect/renovate-config:default"],
+  "automerge": true
+}

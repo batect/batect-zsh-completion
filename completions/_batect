@@ -1,0 +1,4 @@
+#compdef batect
+
+touch /tmp/hello-batect
+echo "Hello world" > /dev/stderr
