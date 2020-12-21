@@ -4,14 +4,24 @@ set -euo pipefail
 
 invocation_time=$(date -u +"%Y-%m-%dT%H:%M:%S%Z")
 
-cat <<EOF > "/tmp/batect-fish-completion-tests/$invocation_time.txt"
+cat <<EOF > "/tmp/batect-zsh-completion-tests/$invocation_time.txt"
 BATECT_COMPLETION_PROXY_VERSION is $BATECT_COMPLETION_PROXY_VERSION
 BATECT_COMPLETION_PROXY_REGISTER_AS is $BATECT_COMPLETION_PROXY_REGISTER_AS
 Arguments were: $@
 EOF
 
 cat <<EOF
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l do-thing
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l other-thing
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l third-thing
+_batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS() {
+  integer ret=1
+  local -a args
+  args+=(
+    '--do-thing',
+    '--other-thing',
+    '--third-thing'
+  )
+  _arguments \$args[@] && ret=0
+  return ret
+}
+
+compdef _batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS $BATECT_COMPLETION_PROXY_REGISTER_AS
 EOF

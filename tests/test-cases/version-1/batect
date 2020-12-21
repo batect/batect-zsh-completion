@@ -7,7 +7,7 @@ VERSION="1.0.0"
 
 invocation_time=$(date -u +"%Y-%m-%dT%H:%M:%S%Z")
 
-cat <<EOF > "/tmp/batect-fish-completion-tests/$invocation_time.txt"
+cat <<EOF > "/tmp/batect-zsh-completion-tests/$invocation_time.txt"
 BATECT_COMPLETION_PROXY_VERSION is $BATECT_COMPLETION_PROXY_VERSION
 BATECT_COMPLETION_PROXY_REGISTER_AS is $BATECT_COMPLETION_PROXY_REGISTER_AS
 BATECT_QUIET_DOWNLOAD is $BATECT_QUIET_DOWNLOAD
@@ -15,8 +15,22 @@ Arguments were: $@
 EOF
 
 cat <<EOF
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l do-thing
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l other-thing
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l third-thing
-complete -c "$BATECT_COMPLETION_PROXY_REGISTER_AS" -l wrapper-script-path --no-files --require-parameter -a '(echo path-\$BATECT_COMPLETION_PROXY_WRAPPER_PATH-path)'
+_batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS_echo_proxy_completion_path() {
+  echo path-\$BATECT_COMPLETION_PROXY_WRAPPER_PATH-path
+}
+
+_batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS() {
+  integer ret=1
+  local -a args
+  args+=(
+    '--do-thing',
+    '--other-thing',
+    '--third-thing',
+    '--wrapper-script-path:string:_batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS_echo_proxy_completion_path'
+  )
+  _arguments \$args[@] && ret=0
+  return ret
+}
+
+compdef _batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS $BATECT_COMPLETION_PROXY_REGISTER_AS
 EOF

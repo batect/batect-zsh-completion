@@ -14,7 +14,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.maxDiff = None
 
     def setUp(self):
-        self.test_output_root_directory = "/tmp/batect-fish-completion-tests"
+        self.test_output_root_directory = "/tmp/batect-zsh-completion-tests"
 
         if os.path.exists(self.test_output_root_directory):
             shutil.rmtree(self.test_output_root_directory)
@@ -89,7 +89,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(result, ["--do-thing", "--other-thing", "--third-thing"])
 
     def run_completions_for(self, input, working_directory):
-        stdout = self.run_fish_command('complete -C"{}"'.format(input), working_directory)
+        stdout = self.run_zsh_command('complete -C"{}"'.format(input), working_directory)
 
         return sorted(stdout.splitlines())
 
@@ -106,7 +106,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             second_input,
         )
 
-        stdout = self.run_fish_command(command, first_working_directory).splitlines()
+        stdout = self.run_zsh_command(command, first_working_directory).splitlines()
 
         divider_line = stdout.index(divider)
         first_output = stdout[0:divider_line]
@@ -114,8 +114,8 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
         return {"first": sorted(first_output), "second": sorted(second_output)}
 
-    def run_fish_command(self, command, working_directory):
-        command_line = ["fish", "--private", "--command", command]
+    def run_zsh_command(self, command, working_directory):
+        command_line = ["zsh", "-c", command]
 
         result = subprocess.run(
             command_line,
