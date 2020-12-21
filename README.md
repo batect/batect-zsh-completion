@@ -7,7 +7,7 @@ Shell tab completions for [Zsh](https://www.zsh.org/).
 ## Requirements
 
 * [Batect](https://batect.dev) v0.65 or later in your project
-* [Zsh](https://www.zsh.org/) v3.2 or later
+* [Zsh](https://www.zsh.org/) v5.8 or later
 
 ## Installing
 
