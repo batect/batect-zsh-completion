@@ -23,7 +23,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
     def test_directory_with_no_wrapper(self):
         result = self.run_completions_for("./bat", self.directory_for_test_case("no-wrapper"))
-        self.assertEqual(result, ["./bat-script\tExecutable, 20B"])
+        self.assertEqual(result, ["./bat-script"])
 
     def test_non_existent_wrapper(self):
         result = self.run_completions_for("./batect -", self.directory_for_test_case("no-wrapper"))
@@ -34,7 +34,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         result = self.run_completions_for("./bat", directory_for_test_case)
 
         file_size = os.path.getsize(os.path.join(directory_for_test_case, "batect"))
-        self.assertEqual(result, ["./batect\tExecutable, {}B".format(file_size)])
+        self.assertEqual(result, ["./batect"])
 
     def test_complete_arguments(self):
         result = self.run_completions_for("./batect --", self.directory_for_test_case("version-1"))
@@ -89,7 +89,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(result, ["--do-thing", "--other-thing", "--third-thing"])
 
     def run_completions_for(self, input, working_directory):
-        stdout = self.run_zsh_command('complete -C"{}"'.format(input), working_directory)
+        stdout = self.run_zsh_command('capture-completions.zsh "{}"'.format(input), working_directory)
 
         return sorted(stdout.splitlines())
 
@@ -98,7 +98,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             second_working_directory = first_working_directory
 
         divider = "---DIVIDER---"
-        command = 'cd "{}" && complete -C"{}" && echo "{}" && cd "{}" && complete -C"{}"'.format(
+        command = 'cd "{}" && capture-completions.zsh "{}" && echo "{}" && cd "{}" && capture-completions.zsh "{}"'.format(
             first_working_directory,
             first_input,
             divider,

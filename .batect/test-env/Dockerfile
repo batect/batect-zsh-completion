@@ -5,4 +5,5 @@ RUN apk --no-cache add \
     zsh==5.8-r1 \
     python3==3.8.5-r0
 
-COPY zshrc /root/.zshrc
+ADD https://raw.githubusercontent.com/Valodim/zsh-capture-completion/740fce754393513d57408bc585fde14e4404ba5a/capture.zsh /usr/local/bin/capture-completions.zsh
+RUN chmod +x /usr/local/bin/capture-completions.zsh
