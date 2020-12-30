@@ -89,7 +89,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(result, ["--do-thing", "--other-thing", "--third-thing"])
 
     def run_completions_for(self, input, working_directory):
-        stdout = self.run_zsh_command('capture-completions.zsh "{}"'.format(input), working_directory)
+        stdout = self.run_zsh_command('complete.zsh "{}"'.format(input), working_directory)
 
         return sorted(stdout.splitlines())
 
@@ -98,7 +98,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             second_working_directory = first_working_directory
 
         divider = "---DIVIDER---"
-        command = 'cd "{}" && capture-completions.zsh "{}" && echo "{}" && cd "{}" && capture-completions.zsh "{}"'.format(
+        command = 'cd "{}" && complete.zsh "{}" && echo "{}" && cd "{}" && complete.zsh "{}"'.format(
             first_working_directory,
             first_input,
             divider,
