@@ -74,8 +74,14 @@ function handleZeroOrOneSuggestion() {
         exit 0
     fi
 
-    # TODO: get last suggestion
-    echo "$withoutTrailingBackspaceCharacters"
+    splitToArguments "$withoutTrailingBackspaceCharacters" | tail -n1
+}
+
+# See https://superuser.com/a/1066541 for an explanation of this.
+function splitToArguments() {
+    line="$1"
+
+    eval "for word in $line; do echo \$word; done"
 }
 
 function handleMultipleSuggestions() {
