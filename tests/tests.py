@@ -21,11 +21,25 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
         os.makedirs(self.test_output_root_directory)
 
-    def test_directory_with_no_wrapper(self):
+    # These first few tests don't actually test our script at all - they're to check our completion testing hook,
+    # complete.zsh, works correctly.
+    def test_completion_testing_hook_single_command_suggestion(self):
         result = self.run_completions_for("./bat", self.directory_for_test_case("no-wrapper"))
         self.assertEqual(result, ["./bat-script"])
 
-    def test_non_existent_wrapper(self):
+    def test_completion_testing_hook_single_argument_suggestion(self):
+        result = self.run_completions_for("md5sum --h", self.directory_for_test_case("no-wrapper"))
+        self.assertEqual(result, ["--help"])
+
+    def test_completion_testing_hook_all_short_suggestions(self):
+        result = self.run_completions_for("ls -", self.directory_for_test_case("no-wrapper"))
+        self.assertEqual(result, ["-1", "-A", "-C", "-F", "-L", "-R", "-S", "-a", "-c", "-d", "-h", "-i", "-k", "-l", "-m", "-n", "-p", "-q", "-r", "-s", "-t", "-u", "-x"])
+
+    def test_completion_testing_hook_mixed_long_and_short_suggestions(self):
+        result = self.run_completions_for("md5sum -", self.directory_for_test_case("no-wrapper"))
+        self.assertEqual(result, ["--binary", "--help", "--ignore-missing", "--quiet", "--status", "--strict", "--tag", "--text", "--version", "--warn", "--zero", "-b", "-c", "-t", "-w", "-z"])
+
+    def test_completion_testing_hook_no_suggestions(self):
         result = self.run_completions_for("./batect -", self.directory_for_test_case("no-wrapper"))
         self.assertEqual(result, [])
 

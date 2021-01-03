@@ -23,11 +23,20 @@ zmodload zsh/zpty
 
     case $count in
     1)
-        # One prompt means there was a single unambiguous suggestion. The prompt line will have been edited in place,
-        # then deleted with all of our backspace characters above. Extract the new command line and then get the last argument to get the suggestion.
+        # One prompt means there was a single unambiguous suggestion, or no suggestions at all.
+        #  * If there's one suggestion, the prompt line will have been edited in place, then deleted with all of our
+        #    backspace characters above. Extract the new command line and then get the last argument to get the suggestion.
+        #  * If there are no suggestions, the prompt line will contain a bell (hex 0x07) and contain the command line
+        #    unmodified (before we try to then backspace it above).
         line=$(echo "$output" | grep "PROMPT-LINE")
         afterPrompt=$(echo "$line" | sed -e 's/.*PROMPT-LINE .* > \x1b\[?2004h//g')
         withoutTrailingBackspaceCharacters=$(echo "$afterPrompt" | sed -e 's/\s*\x08.*//g')
+
+        if [[ $withoutTrailingBackspaceCharacters =~ "\x07" ]]; then
+            # Line contains a bell character and therefore there are no suggestions. Stop.
+            exit 0
+        fi
+
         echo "$withoutTrailingBackspaceCharacters"
 
         # TODO: get last suggestion
