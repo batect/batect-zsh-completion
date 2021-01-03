@@ -84,13 +84,50 @@ function splitToArguments() {
     eval "for word in $line; do echo \$word; done"
 }
 
+# When there are multiple suggestions, they are formatted like this:
+#  --check           -c  -- verify MD5 checksums from input files
+#  --help                -- display help information
+#                    -v  -- verbose output
+# Or if there are only short options:
+#  -v  -- verbose output
 function handleMultipleSuggestions() {
     output="$1"
     promptLines=$(echo "$output" | awk '/PROMPT-LINE/{print NR}')
     firstPromptLine=$(echo "$promptLines" | head -1)
     lastPromptLine=$(echo "$promptLines" | tail -1)
+    suggestionLines=$(echo "$output" | outputBetweenLines "$firstPromptLine" "$lastPromptLine" | stripDescriptions)
 
-    echo "$output" | tail -n "+$((firstPromptLine+1))" | head -n $((lastPromptLine-firstPromptLine-1))
+    splitGroupedSuggestions "$suggestionLines"
+}
+
+function outputBetweenLines() {
+    firstLine="$1"
+    lastLine="$2"
+
+    tail -n "+$((firstLine+1))" | head -n $((lastLine-firstLine-1))
+}
+
+function stripDescriptions() {
+    sed -e 's/  -- .*//g'
+}
+
+function splitGroupedSuggestions() {
+    lines="$1"
+
+    echo "$lines" | while IFS= read -r line; do
+        # This is quite fragile and will fail if any suggestions contain spaces.
+        firstSuggestion=${line%% *}
+        lastSuggestion=${line##* }
+
+        if [[ "$firstSuggestion" != "" ]]; then
+            # Why use 'cat' and not 'echo'? 'echo' interprets some inputs (eg. '-n') as arguments for itself rather than desired output.
+            cat <<< "$firstSuggestion"
+        fi
+
+        if [[ "$firstSuggestion" != "$lastSuggestion" && "$lastSuggestion" != "" ]]; then
+            cat <<< "$lastSuggestion"
+        fi
+    done
 }
 
 main
