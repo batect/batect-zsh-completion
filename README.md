@@ -32,3 +32,8 @@ The manual for Zsh's completion system is quite detailed and isn't a great tutor
 * https://wikimatze.de/writing-zsh-completion-for-padrino/
 * https://web.archive.org/web/20190411104837/http://www.linux-mag.com/id/1106/
 * http://zv.github.io/a-review-of-zsh-completion-utilities
+
+For [the testing script](.batect/test-env/complete.zsh), these served as inspiration:
+
+* https://github.com/Valodim/zsh-capture-completion
+* https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/strategies/completion.zsh and https://github.com/zsh-users/zsh-autosuggestions/pull/350
