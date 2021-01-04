@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import unittest
 
-EXPECTED_PROXY_VERSION = "0.4.0-dev"
+EXPECTED_PROXY_VERSION = "0.1.0-dev"
 
 
 class CompletionProxyScriptTests(unittest.TestCase):
@@ -60,9 +60,9 @@ class CompletionProxyScriptTests(unittest.TestCase):
         version_script_invocation_details = self.get_version_script_invocation_details()
 
         self.assertEqual(version_script_invocation_details["proxy_version"], EXPECTED_PROXY_VERSION)
-        self.assertEqual(version_script_invocation_details["register_as"], "batect-1.0.0")
+        self.assertEqual(version_script_invocation_details["register_as"], "_batect-1.0.0")
         self.assertEqual(version_script_invocation_details["wrapper_quiet_download"], "true")
-        self.assertEqual(version_script_invocation_details["arguments"], "--generate-completion-script=fish")
+        self.assertEqual(version_script_invocation_details["arguments"], "--generate-completion-script=zsh")
 
     def test_passing_wrapper_script_path(self):
         result = self.run_completions_for("./batect --wrapper-script-path=", self.directory_for_test_case("version-1"))
@@ -90,7 +90,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             self.directory_for_test_case("version-2"),
         )
 
-        self.assertEqual(result["first"], ["--do-thing", "--other-thing", "--other-stuff", "--wrapper-script-path"])
+        self.assertEqual(result["first"], ["--do-thing", "--other-stuff", "--other-thing", "--wrapper-script-path"])
         self.assertEqual(result["second"], ["--other-second-thing", "--second-thing"])
 
     def test_not_in_current_directory(self):
