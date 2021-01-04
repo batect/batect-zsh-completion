@@ -37,17 +37,15 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
     def test_completion_testing_hook_mixed_long_and_short_suggestions(self):
         result = self.run_completions_for("md5sum -", self.directory_for_test_case("no-wrapper"))
-        self.assertEqual(result, ["--binary", "--help", "--ignore-missing", "--quiet", "--status", "--strict", "--tag", "--text", "--version", "--warn", "--zero", "-b", "-c", "-t", "-w", "-z"])
+        self.assertEqual(result, ["--binary", "--check", "--help", "--ignore-missing", "--quiet", "--status", "--strict", "--tag", "--text", "--version", "--warn", "--zero", "-b", "-c", "-t", "-w", "-z"])
 
     def test_completion_testing_hook_no_suggestions(self):
-        result = self.run_completions_for("./batect -", self.directory_for_test_case("no-wrapper"))
+        result = self.run_completions_for("./nonsense -", self.directory_for_test_case("no-wrapper"))
         self.assertEqual(result, [])
 
     def test_directory_with_wrapper(self):
         directory_for_test_case = self.directory_for_test_case("version-1")
         result = self.run_completions_for("./bat", directory_for_test_case)
-
-        file_size = os.path.getsize(os.path.join(directory_for_test_case, "batect"))
         self.assertEqual(result, ["./batect"])
 
     def test_complete_arguments(self):
