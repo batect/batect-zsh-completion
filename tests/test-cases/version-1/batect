@@ -16,19 +16,20 @@ EOF
 
 cat <<EOF
 _${BATECT_COMPLETION_PROXY_REGISTER_AS}_echo_proxy_completion_path() {
-  echo path-\${BATECT_COMPLETION_PROXY_WRAPPER_PATH}-path
+  local options
+  options=(path-\${BATECT_COMPLETION_PROXY_WRAPPER_PATH}-path)
+  _describe 'options' options
 }
 
 $BATECT_COMPLETION_PROXY_REGISTER_AS() {
-  integer ret=1
   local -a args
   args+=(
     '--do-thing'
     '--other-thing'
     '--other-stuff'
-    '--wrapper-script-path:string:_${BATECT_COMPLETION_PROXY_REGISTER_AS}_echo_proxy_completion_path'
+    '--wrapper-script-path+:string:_${BATECT_COMPLETION_PROXY_REGISTER_AS}_echo_proxy_completion_path'
   )
-  _arguments \$args[@] && ret=0
-  return ret
+  _arguments \$args[@] && return 0
+  return 1
 }
 EOF

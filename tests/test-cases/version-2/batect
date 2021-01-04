@@ -15,13 +15,12 @@ EOF
 
 cat <<EOF
 $BATECT_COMPLETION_PROXY_REGISTER_AS() {
-  integer ret=1
   local -a args
   args+=(
     '--second-thing'
     '--other-second-thing'
   )
-  _arguments \$args[@] && ret=0
-  return ret
+  _arguments \$args[@] && return 0
+  return 1
 }
 EOF

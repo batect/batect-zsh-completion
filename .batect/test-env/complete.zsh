@@ -89,7 +89,14 @@ function handleZeroOrOneSuggestion() {
 function splitToArguments() {
     line="$1"
 
-    eval "for word in $line; do echo \$word; done"
+    # This is quite fragile and will fail if any suggestions contain spaces.
+    # It also doesn't handle quoted arguments correctly.
+    words=(${(s: :)line})
+
+    for word in "${words[@]}"; do
+        # Why use 'cat' and not 'echo'? 'echo' interprets some inputs (eg. '-n') as arguments for itself rather than desired output.
+        cat <<< "$word"
+    done
 }
 
 # When there are multiple suggestions, they are formatted like this:
