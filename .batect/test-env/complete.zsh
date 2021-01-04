@@ -19,8 +19,6 @@ function main() {
 
     deletePromptContents
     output=$(exitPTYAndCaptureContent)
-    echo "Output was:" >/dev/stderr
-    echo "$output" >/dev/stderr
 
     # This part relies on the customised prompt set in ~/.zshrc.
     count=$(echo "$output" | grep -c "PROMPT-LINE")

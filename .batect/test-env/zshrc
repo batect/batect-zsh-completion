@@ -1,6 +1,5 @@
 autoload -Uz compinit
-compaudit
-compinit
+compinit -i
 
 zstyle ':completion:*:messages' format 'Message: %d'
 
