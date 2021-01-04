@@ -33,11 +33,21 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
     def test_completion_testing_hook_all_short_suggestions(self):
         result = self.run_completions_for("ls -", self.directory_for_test_case("no-wrapper"))
-        self.assertEqual(result, ["-1", "-A", "-C", "-F", "-L", "-R", "-S", "-a", "-c", "-d", "-h", "-i", "-k", "-l", "-m", "-n", "-p", "-q", "-r", "-s", "-t", "-u", "-x"])
+        self.assertEqual(
+            result, [
+                "-1", "-A", "-C", "-F", "-L", "-R", "-S", "-a", "-c", "-d", "-h", "-i", "-k", "-l", "-m", "-n", "-p",
+                "-q", "-r", "-s", "-t", "-u", "-x"
+            ]
+        )
 
     def test_completion_testing_hook_mixed_long_and_short_suggestions(self):
         result = self.run_completions_for("md5sum -", self.directory_for_test_case("no-wrapper"))
-        self.assertEqual(result, ["--binary", "--check", "--help", "--ignore-missing", "--quiet", "--status", "--strict", "--tag", "--text", "--version", "--warn", "--zero", "-b", "-c", "-t", "-w", "-z"])
+        self.assertEqual(
+            result, [
+                "--binary", "--check", "--help", "--ignore-missing", "--quiet", "--status", "--strict", "--tag",
+                "--text", "--version", "--warn", "--zero", "-b", "-c", "-t", "-w", "-z"
+            ]
+        )
 
     def test_completion_testing_hook_no_suggestions(self):
         result = self.run_completions_for("./nonsense -", self.directory_for_test_case("no-wrapper"))

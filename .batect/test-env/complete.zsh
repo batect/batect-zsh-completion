@@ -37,7 +37,8 @@ function main() {
         echo "-----------------------------------" >/dev/stderr
         echo "$output" >/dev/stderr
         echo "-----------------------------------" >/dev/stderr
-        echo "Don't forget that your terminal may be processing (and therefore hiding) escape sequences and special characters in the output (eg. backspace and carriage return characters)" >/dev/stderr
+        echo -n "Don't forget that your terminal may be processing (and therefore hiding) escape sequences and special characters in the output " >/dev/stderr
+        echo    "(eg. backspace and carriage return characters)" >/dev/stderr
         exit 1
         ;;
     esac
@@ -49,7 +50,7 @@ function startPTY() {
 }
 
 function triggerCompletion() {
-   zpty -w -n $TEST_PTY_NAME "$LINE_TO_COMPLETE"$'\t'
+    zpty -w -n $TEST_PTY_NAME "$LINE_TO_COMPLETE"$'\t'
 }
 
 function deletePromptContents() {

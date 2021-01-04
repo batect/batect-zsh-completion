@@ -37,7 +37,10 @@ _batect() {
     # This syntax is explained at https://unix.stackexchange.com/a/411307/258093.
     if [[ ${batect_completion_proxy_loaded_versions[(ie)$batect_version]} -gt ${#batect_completion_proxy_loaded_versions} ]]; then
         local completion_script
-        completion_script=$(BATECT_QUIET_DOWNLOAD=true $wrapper_script_path --generate-completion-script=zsh) || ( _message "Running Batect $batect_version to generate completion script failed: $completion_script" && return 1 )
+        completion_script=$(BATECT_QUIET_DOWNLOAD=true $wrapper_script_path --generate-completion-script=zsh) || (
+            _message "Running Batect $batect_version to generate completion script failed: $completion_script" && return 1
+        )
+
         eval "$completion_script"
         batect_completion_proxy_loaded_versions+=("$wrapper_script_path")
     fi
