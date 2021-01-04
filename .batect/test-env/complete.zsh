@@ -14,12 +14,13 @@ TEST_PTY_NAME=test-pty
 LINE_TO_COMPLETE="$1"
 
 function main() {
-    echo "Test" >/dev/stderr
     startPTY
     triggerCompletion
 
     deletePromptContents
     output=$(exitPTYAndCaptureContent)
+    echo "Output was:" >/dev/stderr
+    echo "$output" >/dev/stderr
 
     # This part relies on the customised prompt set in ~/.zshrc.
     count=$(echo "$output" | grep -c "PROMPT-LINE")
