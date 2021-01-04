@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Unused in script - used by proxy script to determine version
-VERSION="0.64.1"
+VERSION="0.65.66"
 
 echo "This script should never be invoked!" > /dev/stderr
 exit 1

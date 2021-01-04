@@ -48,6 +48,11 @@ class CompletionProxyScriptTests(unittest.TestCase):
         result = self.run_completions_for("./bat", directory_for_test_case)
         self.assertEqual(result, ["./batect"])
 
+    def test_directory_with_no_wrapper(self):
+        directory_for_test_case = self.directory_for_test_case("no-wrapper")
+        result = self.run_completions_for("./batect -", directory_for_test_case)
+        self.assertEqual(result, [])
+
     def test_complete_arguments(self):
         result = self.run_completions_for("./batect --", self.directory_for_test_case("version-1"))
         self.assertEqual(result, ["--do-thing", "--other-thing", "--third-thing", "--wrapper-script-path"])
@@ -98,7 +103,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
 
     def test_no_version_in_wrapper(self):
         result = self.run_completions_for("./batect --", self.directory_for_test_case("gradle-generated-start-script"))
-        self.assertEqual(result, ["--do-thing", "--other-thing", "--third-thing"])
+        self.assertEqual(result, ["--do-thing", "--other-thing", "--other-stuff"])
 
     def run_completions_for(self, input, working_directory):
         stdout = self.run_zsh_command('complete.zsh "{}"'.format(input), working_directory)

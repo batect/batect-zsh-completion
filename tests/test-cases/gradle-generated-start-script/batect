@@ -11,17 +11,15 @@ Arguments were: $@
 EOF
 
 cat <<EOF
-_batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS() {
+$BATECT_COMPLETION_PROXY_REGISTER_AS() {
   integer ret=1
   local -a args
   args+=(
-    '--do-thing',
-    '--other-thing',
-    '--third-thing'
+    '--do-thing'
+    '--other-thing'
+    '--other-stuff'
   )
   _arguments \$args[@] && ret=0
   return ret
 }
-
-compdef _batect_completion_$BATECT_COMPLETION_PROXY_REGISTER_AS $BATECT_COMPLETION_PROXY_REGISTER_AS
 EOF

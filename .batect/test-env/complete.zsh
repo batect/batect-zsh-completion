@@ -2,6 +2,14 @@
 
 set -euo pipefail
 
+# What is this?
+# This is a script that simulates a tab completion for a given command line and returns the suggestions generated.
+# zsh doesn't have a nice way to do this (like Fish's "complete -C'...'"), so we start a pseudo-TTY, write the command,
+# send a tab character, then press backspace a bunch (to clear the command line) and exit the terminal.
+# It's a horrible hack.
+# Amongst other things, this doesn't work (and hangs) if multiple suggestions with common suffixes are matched (eg. './batect -' generates
+# suggestions '--one-thing', '--other-thing', which zsh then completes to './batect --o-thing', with the cursor after the 'o').
+
 TEST_PTY_NAME=test-pty
 LINE_TO_COMPLETE="$1"
 
