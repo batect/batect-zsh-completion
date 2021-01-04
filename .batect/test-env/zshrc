@@ -2,6 +2,8 @@ autoload -Uz compinit
 compinit
 
 zstyle ':completion:*:messages' format 'Message: %d'
-zstyle ':completion:*:warnings' format 'Warning: %d'
+
+# Useful for debugging: shows when completion functions generate no suggestions.
+# zstyle ':completion:*:warnings' format 'Warning: %d'
 
 PROMPT='PROMPT-LINE %/ > '
