@@ -13,10 +13,12 @@ jobs:
       DOCKER_BUILDKIT: 1
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
 
       - name: Cache Batect
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.3
         with:
           path: ~/.batect/cache
           key: batect-${{ hashFiles('batect') }}
