@@ -73,7 +73,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(result, ["--do-thing"])
 
     def test_complete_subsequent_arguments(self):
-        result = self.run_completions_for("./batect --do-thing --third", self.directory_for_test_case("version-1"))
+        result = self.run_completions_for("./batect --do-thing --other-s", self.directory_for_test_case("version-1"))
         self.assertEqual(result, ["--other-stuff"])
 
     def test_multiple_invocations_same_version(self):
