@@ -14,6 +14,7 @@ TEST_PTY_NAME=test-pty
 LINE_TO_COMPLETE="$1"
 
 function main() {
+    echo "Test" >/dev/stderr
     startPTY
     triggerCompletion
 
