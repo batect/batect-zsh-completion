@@ -13,9 +13,13 @@ jobs:
       DOCKER_BUILDKIT: 1
 
     steps:
-      - uses: actions/checkout@v2.3.4
+      - name: Check out code
+        uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+
+      - name: Fix tag reference (workaround for https://github.com/actions/checkout/issues/290)
+        run: git fetch -f origin ${{ github.ref }}:${{ github.ref }}
 
       - name: Cache Batect
         uses: actions/cache@v2.1.3
