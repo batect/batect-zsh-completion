@@ -25,7 +25,7 @@ $BATECT_COMPLETION_PROXY_REGISTER_AS() {
   args+=(
     '--do-thing'
     '--other-thing'
-    '--third-thing'
+    '--other-stuff'
     '--wrapper-script-path:string:_${BATECT_COMPLETION_PROXY_REGISTER_AS}_echo_proxy_completion_path'
   )
   _arguments \$args[@] && ret=0

@@ -98,6 +98,8 @@ function splitToArguments() {
 #                    -v  -- verbose output
 # Or if there are only short options:
 #  -v  -- verbose output
+# Or if there are no descriptions for any option:
+#  --do-thing     --other-stuff  --other-thing
 function handleMultipleSuggestions() {
     output="$1"
     promptLines=$(echo "$output" | awk '/PROMPT-LINE/{print NR}')
@@ -130,17 +132,12 @@ function splitGroupedSuggestions() {
         fi
 
         # This is quite fragile and will fail if any suggestions contain spaces.
-        firstSuggestion=${line%% *}
-        lastSuggestion=${line##* }
+        words=(${(s: :)line})
 
-        if [[ "$firstSuggestion" != "" ]]; then
+        for word in "${words[@]}"; do
             # Why use 'cat' and not 'echo'? 'echo' interprets some inputs (eg. '-n') as arguments for itself rather than desired output.
-            cat <<< "$firstSuggestion"
-        fi
-
-        if [[ "$firstSuggestion" != "$lastSuggestion" && "$lastSuggestion" != "" ]]; then
-            cat <<< "$lastSuggestion"
-        fi
+            cat <<< "$word"
+        done
     done
 }
 
