@@ -1,4 +1,7 @@
 autoload -Uz compinit
 compinit
 
+zstyle ':completion:*:messages' format 'Message: %d'
+zstyle ':completion:*:warnings' format 'Warning: %d'
+
 PROMPT='PROMPT-LINE %/ > '

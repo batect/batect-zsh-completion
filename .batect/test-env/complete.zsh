@@ -115,6 +115,12 @@ function splitGroupedSuggestions() {
     lines="$1"
 
     echo "$lines" | while IFS= read -r line; do
+        if [[ "$line" =~ "Message: " || "$line" =~ "Warning: " ]]; then
+            # Line isn't actually a suggestion - it's a warning or a message.
+            echo "$line" > /dev/stderr
+            continue
+        fi
+
         # This is quite fragile and will fail if any suggestions contain spaces.
         firstSuggestion=${line%% *}
         lastSuggestion=${line##* }
