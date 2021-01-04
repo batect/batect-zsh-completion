@@ -31,7 +31,7 @@ _batect() {
     fi
 
     export BATECT_COMPLETION_PROXY_REGISTER_AS="_batect-$batect_version"
-    export BATECT_COMPLETION_PROXY_VERSION="0.1.2"
+    export BATECT_COMPLETION_PROXY_VERSION="0.2.0-dev"
     export BATECT_COMPLETION_PROXY_WRAPPER_PATH="$wrapper_script_path"
 
     # This syntax is explained at https://unix.stackexchange.com/a/411307/258093.
