@@ -7,3 +7,5 @@ zstyle ':completion:*:messages' format 'Message: %d'
 # zstyle ':completion:*:warnings' format 'Warning: %d'
 
 PROMPT='PROMPT-LINE %/ > '
+
+stty columns 1000
