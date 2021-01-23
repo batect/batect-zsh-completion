@@ -74,6 +74,13 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(version_script_invocation_details["wrapper_quiet_download"], "true")
         self.assertEqual(version_script_invocation_details["arguments"], "--generate-completion-script=zsh")
 
+    def test_complete_after_chained_command(self):
+        result = self.run_completions_for(
+            "./batect --version && ../version-2/batect --", self.directory_for_test_case("version-1")
+        )
+
+        self.assertEqual(result, ["--other-second-thing", "--second-thing"])
+
     def test_passing_wrapper_script_path(self):
         result = self.run_completions_for("./batect --wrapper-script-path ", self.directory_for_test_case("version-1"))
         self.assertEqual(result, ["path-./batect-path"])
