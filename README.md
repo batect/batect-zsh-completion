@@ -1,6 +1,6 @@
 # batect/zsh-completion
 
-[![Pipeline](https://github.com/batect/zsh-completion/workflows/Pipeline/badge.svg?branch=master)](https://github.com/batect/zsh-completion/actions?query=workflow%3APipeline+branch%3Amaster)
+[![Pipeline](https://github.com/batect/zsh-completion/workflows/Pipeline/badge.svg?branch=main)](https://github.com/batect/zsh-completion/actions?query=workflow%3APipeline+branch%3Amain)
 
 Shell tab completions for [Zsh](https://www.zsh.org/).
 
