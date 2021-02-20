@@ -2,18 +2,19 @@
 
 set -euo pipefail
 
-# Unused in script - used by proxy script to determine version
-VERSION="2.0.0"
+{
+  # Unused in script - used by proxy script to determine version
+  VERSION="2.0.0"
 
-invocation_time="$(date -u +"%Y-%m-%dT%H:%M:%S%Z")-$(uuidgen)"
+  invocation_time="$(date -u +"%Y-%m-%dT%H:%M:%S%Z")-$(uuidgen)"
 
-cat <<EOF > "/tmp/batect-zsh-completion-tests/$invocation_time.txt"
+  cat <<EOF > "/tmp/batect-zsh-completion-tests/$invocation_time.txt"
 BATECT_COMPLETION_PROXY_VERSION is $BATECT_COMPLETION_PROXY_VERSION
 BATECT_COMPLETION_PROXY_REGISTER_AS is $BATECT_COMPLETION_PROXY_REGISTER_AS
 Arguments were: $@
 EOF
 
-cat <<EOF
+  cat <<EOF
 $BATECT_COMPLETION_PROXY_REGISTER_AS() {
   local -a args
   args+=(
@@ -24,3 +25,4 @@ $BATECT_COMPLETION_PROXY_REGISTER_AS() {
   return 1
 }
 EOF
+}

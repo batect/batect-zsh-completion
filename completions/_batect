@@ -13,7 +13,7 @@ _batect() {
     fi
 
     local batect_version
-    batect_version=$(sed -En 's/VERSION="(.*)"/\1/p' "$wrapper_script_path")
+    batect_version=$(sed -En 's/VERSION="(.*)"/\1/p' "$wrapper_script_path" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
     local use_disk_cache
     use_disk_cache=true
 
