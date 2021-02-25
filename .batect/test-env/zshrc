@@ -6,6 +6,9 @@ zstyle ':completion:*:messages' format 'Message: %d'
 # Useful for debugging: shows when completion functions generate no suggestions.
 # zstyle ':completion:*:warnings' format 'Warning: %d'
 
+# Don't show "do you wish to see all possibilities?" prompt
+zstyle ':completion:*' list-prompt   ''
+
 PROMPT='PROMPT-LINE %/ > '
 
-stty columns 1000
+stty columns 1000 rows 1000
