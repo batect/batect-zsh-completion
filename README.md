@@ -13,9 +13,28 @@ Shell tab completions for [Zsh](https://www.zsh.org/).
 
 ### With [Homebrew](http://brew.sh/)
 
-```
+```shell
 brew install batect/batect/batect-zsh-completion
 ```
+
+You'll need to restart Zsh for the change to take effect.
+
+### With [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
+
+Clone this repository into your plugins directory:
+
+```shell
+cd "$ZSH_CUSTOM/plugins/"
+git clone https://github.com/batect/zsh-completion.git batect-completion
+```
+
+Then edit `~/.zshrc`, adding `batect-completion` to your existing list of plugins:
+
+```shell
+plugins=(...your existing plugins... batect-completion)
+```
+
+You'll need to restart Zsh for the change to take effect.
 
 ## How this works
 

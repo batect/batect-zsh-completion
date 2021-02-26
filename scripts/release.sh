@@ -34,14 +34,14 @@ function main() {
 function updateVersion() {
     VERSION=$1
 
-    sed -i '' -E "s/export BATECT_COMPLETION_PROXY_VERSION=\".*\"/export BATECT_COMPLETION_PROXY_VERSION=\"$VERSION\"/g" "$ROOT_DIR/completions/_batect"
+    sed -i '' -E "s/export BATECT_COMPLETION_PROXY_VERSION=\".*\"/export BATECT_COMPLETION_PROXY_VERSION=\"$VERSION\"/g" "$ROOT_DIR/_batect"
     sed -i '' -E "s/EXPECTED_PROXY_VERSION = \".*\"/EXPECTED_PROXY_VERSION = \"$VERSION\"/g" "$ROOT_DIR/tests/tests.py"
 }
 
 function commit() {
     COMMIT_MESSAGE=$1
 
-    git add "$ROOT_DIR/completions/_batect"
+    git add "$ROOT_DIR/_batect"
     git add "$ROOT_DIR/tests/tests.py"
     git commit -m "$COMMIT_MESSAGE"
 }

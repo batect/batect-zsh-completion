@@ -22,7 +22,7 @@ function main() {
 }
 
 function getVersionInScript() {
-    sed -E -n 's/export BATECT_COMPLETION_PROXY_VERSION=\"(.*)\"/\1/p' "$ROOT_DIR/completions/_batect" | tr -d " "
+    sed -E -n 's/export BATECT_COMPLETION_PROXY_VERSION=\"(.*)\"/\1/p' "$ROOT_DIR/_batect" | tr -d " "
 }
 
 function getGitTag() {
