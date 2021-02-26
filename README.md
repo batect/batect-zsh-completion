@@ -25,13 +25,13 @@ Clone this repository into your plugins directory:
 
 ```shell
 cd "$ZSH_CUSTOM/plugins/"
-git clone https://github.com/batect/zsh-completion.git batect-completion
+git clone https://github.com/batect/zsh-completion.git batect
 ```
 
-Then edit `~/.zshrc`, adding `batect-completion` to your existing list of plugins:
+Then edit `~/.zshrc`, adding `batect` to your existing list of plugins:
 
 ```shell
-plugins=(...your existing plugins... batect-completion)
+plugins=(...your existing plugins... batect)
 ```
 
 You'll need to restart Zsh for the change to take effect.
