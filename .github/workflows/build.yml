@@ -20,7 +20,7 @@ jobs:
 
       - name: Fix tag reference (workaround for https://github.com/actions/checkout/issues/290)
         run: git fetch -f origin ${{ github.ref }}:${{ github.ref }}
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') && github.repository == 'batect/zsh-completion'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') && github.repository == 'batect/batect-zsh-completion'
 
       - name: Cache Batect
         uses: actions/cache@v2.1.5
@@ -42,4 +42,4 @@ jobs:
 
       - name: Validate release
         run: ./batect validate-release
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') && github.repository == 'batect/zsh-completion'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') && github.repository == 'batect/batect-zsh-completion'

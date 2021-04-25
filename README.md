@@ -1,6 +1,6 @@
-# batect/zsh-completion
+# batect-zsh-completion
 
-[![Pipeline](https://github.com/batect/zsh-completion/workflows/Pipeline/badge.svg?branch=main)](https://github.com/batect/zsh-completion/actions?query=workflow%3APipeline+branch%3Amain)
+[![Pipeline](https://github.com/batect/batect-zsh-completion/workflows/Pipeline/badge.svg?branch=main)](https://github.com/batect/batect-zsh-completion/actions?query=workflow%3APipeline+branch%3Amain)
 
 Shell tab completions for [Zsh](https://www.zsh.org/).
 
@@ -25,7 +25,7 @@ Clone this repository into your plugins directory:
 
 ```shell
 cd "$ZSH_CUSTOM/plugins/"
-git clone https://github.com/batect/zsh-completion.git batect
+git clone https://github.com/batect/batect-zsh-completion.git batect
 ```
 
 Then edit `~/.zshrc`, adding `batect` to your existing list of plugins:
