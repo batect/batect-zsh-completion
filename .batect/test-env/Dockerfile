@@ -4,7 +4,7 @@ RUN apk --no-cache add \
     bash==5.1.0-r0 \
     zsh==5.8-r1 \
     python3==3.8.10-r0 \
-    util-linux==2.36.1-r1 # For uuidgen
+    util-linux==2.37-r0 # For uuidgen
 
 COPY zshrc /root/.zshrc
 COPY complete.zsh /usr/local/bin/complete.zsh
