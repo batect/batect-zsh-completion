@@ -66,7 +66,7 @@ _batect_load_completion_script() {
     fi
 
     eval "$completion_script"
-    batect_completion_proxy_loaded_versions+=("$wrapper_script_path")
+    batect_completion_proxy_loaded_versions+=("$batect_version")
 
     if [[ "$use_disk_cache" == "true" && ! -f "$disk_cache_path" ]]; then
         mkdir -p "$disk_cache_root"
