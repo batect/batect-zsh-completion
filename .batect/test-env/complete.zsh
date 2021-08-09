@@ -69,7 +69,7 @@ function exitPTYAndCaptureContent() {
 
 #  * If there's one suggestion, the prompt line will have been edited in place, then deleted with all of our
 #    backspace characters above. Extract the new command line and then get the last argument to get the suggestion.
-#  * If there are no suggestions, the prompt line will contain a bell (hex 0x07) and contain the command line
+#  * If there are no suggestions, the prompt line might contain a bell (hex 0x07) and contain the command line
 #    unmodified (before we try to then backspace it above).
 function handleZeroOrOneSuggestion() {
     output="$1"
@@ -77,13 +77,14 @@ function handleZeroOrOneSuggestion() {
     line=$(echo "$output" | grep "PROMPT-LINE")
     afterPrompt=$(echo "$line" | sed -e 's/.*PROMPT-LINE .* > \x1b\[?2004h//g')
     withoutTrailingBackspaceCharacters=$(echo "$afterPrompt" | sed -e 's/\s*\x08.*//g')
+    withoutTrailingBellCharacters=$(echo "$withoutTrailingBackspaceCharacters" | sed -e 's/\x07*$//g')
 
-    if [[ $withoutTrailingBackspaceCharacters =~ "\x07" ]]; then
-        # Line contains a bell character and therefore there are no suggestions. Stop.
-        exit 0
+    suggestion=$(splitToArguments "$withoutTrailingBellCharacters" | tail -n1)
+    original=$(splitToArguments "$LINE_TO_COMPLETE" | tail -n1)
+
+    if [[ "$suggestion" != "$original" ]]; then
+        echo "$suggestion"
     fi
-
-    splitToArguments "$withoutTrailingBackspaceCharacters" | tail -n1
 }
 
 # See https://superuser.com/a/1066541 for an explanation of this.
