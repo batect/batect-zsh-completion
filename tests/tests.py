@@ -9,6 +9,7 @@ EXPECTED_PROXY_VERSION = "0.5.0-dev"
 
 
 class CompletionProxyScriptTests(unittest.TestCase):
+
     def __init__(self, methodName):
         super().__init__(methodName)
         self.maxDiff = None
