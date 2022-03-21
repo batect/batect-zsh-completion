@@ -23,7 +23,7 @@ jobs:
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') && github.repository == 'batect/batect-zsh-completion'
 
       - name: Cache Batect
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.0
         with:
           path: ~/.batect/cache
           key: batect-${{ hashFiles('batect') }}
