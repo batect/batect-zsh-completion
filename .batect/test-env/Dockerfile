@@ -3,7 +3,7 @@ FROM alpine:3.15.4@sha256:4edbd2beb5f78b1014028f4fbb99f3237d9561100b6881aabbf5ac
 RUN apk --no-cache add \
     bash==5.1.16-r0 \
     zsh==5.8.1-r0 \
-    python3==3.9.7-r4 \
+    python3==3.10.4-r0 \
     util-linux==2.37.4-r0 # For uuidgen
 
 COPY zshrc /root/.zshrc
