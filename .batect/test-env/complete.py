@@ -14,7 +14,6 @@ import pexpect
 # (eg. './batect -' generates suggestions '--one-thing', '--other-thing', which zsh then completes to
 # './batect --o-thing', with the cursor after the 'o').
 
-
 command_start_marker = "\x1b[?2004h"
 command_end_marker = "\x1b[?2004l"
 
@@ -23,14 +22,7 @@ def main():
     line_to_complete = read_arguments()
 
     child = pexpect.spawn(
-        "zsh",
-        ["--alwayslastprompt"],
-        env={
-            "TERM": "dumb",
-        },
-        echo=False,
-        timeout=5,
-        dimensions=(1000, 300)
+        "zsh", ["--alwayslastprompt"], env={"TERM": "dumb"}, echo=False, timeout=5, dimensions=(1000, 300)
     )
 
     child.expect("PROMPT-LINE")

@@ -8,8 +8,7 @@ RUN apk --no-cache add \
     util-linux==2.38-r1 # For uuidgen
 
 COPY requirements.txt /tmp/requirements.txt
-RUN pip3 install -r /tmp/requirements.txt
-RUN rm /tmp/requirements.txt
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
 
 COPY .zshrc /root/.zshrc
 COPY complete.py /usr/local/bin/complete.py
