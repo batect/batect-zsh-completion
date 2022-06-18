@@ -9,8 +9,8 @@ zstyle ':completion:*:messages' format 'Message: %d'
 # Don't show "do you wish to see all possibilities?" prompt
 zstyle ':completion:*' list-prompt   ''
 
-PROMPT='PROMPT-LINE %/ > '
+zstyle ':completion:*:default' format '%BCompleting %d:%b'
 
-stty columns 1000 rows 1000
+PROMPT='PROMPT-LINE %/ > '
 
 unsetopt BEEP

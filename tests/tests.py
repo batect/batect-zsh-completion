@@ -28,7 +28,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             shutil.rmtree(cache_dir)
 
     # These first few tests don't actually test our script at all - they're to check our completion testing hook,
-    # complete.zsh, works correctly.
+    # complete.py, works correctly.
     def test_completion_testing_hook_single_command_suggestion(self):
         result = self.run_completions_for("./bat", self.directory_for_test_case("no-wrapper"))
         self.assertEqual(result, ["./bat-script"])
@@ -135,7 +135,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
         self.assertEqual(result, ["--do-thing", "--other-stuff", "--other-thing"])
 
     def run_completions_for(self, input, working_directory):
-        stdout = self.run_zsh_command('complete.zsh "{}"'.format(input), working_directory)
+        stdout = self.run_zsh_command('complete.py "{}"'.format(input), working_directory)
 
         return sorted(stdout.splitlines())
 
@@ -144,7 +144,7 @@ class CompletionProxyScriptTests(unittest.TestCase):
             second_working_directory = first_working_directory
 
         divider = "---DIVIDER---"
-        command = 'cd "{}" && complete.zsh "{}" && echo "{}" && cd "{}" && complete.zsh "{}"'.format(
+        command = 'cd "{}" && complete.py "{}" && echo "{}" && cd "{}" && complete.py "{}"'.format(
             first_working_directory,
             first_input,
             divider,

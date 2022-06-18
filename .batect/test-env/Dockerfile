@@ -4,7 +4,12 @@ RUN apk --no-cache add \
     bash==5.1.16-r2 \
     zsh==5.8.1-r4 \
     python3==3.10.4-r0 \
+    py3-pip==22.1.1-r0 \
     util-linux==2.38-r1 # For uuidgen
 
-COPY zshrc /root/.zshrc
-COPY complete.zsh /usr/local/bin/complete.zsh
+COPY requirements.txt /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
+RUN rm /tmp/requirements.txt
+
+COPY .zshrc /root/.zshrc
+COPY complete.py /usr/local/bin/complete.py
