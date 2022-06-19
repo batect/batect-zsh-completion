@@ -11,6 +11,4 @@ zstyle ':completion:*' list-prompt   ''
 
 zstyle ':completion:*:default' format '%BCompleting %d:%b'
 
-PROMPT='PROMPT-LINE %/ > '
-
-unsetopt BEEP
+PROMPT='PROMPT-LINE > '

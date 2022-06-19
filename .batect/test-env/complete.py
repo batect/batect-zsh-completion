@@ -16,26 +16,38 @@ import pexpect
 
 command_start_marker = "\x1b[?2004h"
 command_end_marker = "\x1b[?2004l"
+beep = "\x07"
 
 
 def main():
     line_to_complete = read_arguments()
 
     child = pexpect.spawn(
-        "zsh", ["--alwayslastprompt"], env={"TERM": "dumb"}, echo=False, timeout=5, dimensions=(1000, 300)
+        "zsh", ["--alwayslastprompt"],
+        env={
+            "TERM": "dumb",
+            "BATECT_ENABLE_TELEMETRY": "false"
+        },
+        echo=False,
+        timeout=5,
+        dimensions=(1000, 300)
     )
 
-    child.expect("PROMPT-LINE")
+    child.expect("PROMPT-LINE > ")
     child.send(line_to_complete)
     child.send("\t")
 
-    time.sleep(0.1)
+    # Wait until we have some output before continuing.
+    first_line = child.read(len(command_start_marker) + len(line_to_complete) + 1).decode()
+
+    # If there are no completions, the last character read above will be a bell / beep character - remove it.
+    first_line = first_line.removesuffix(beep)
 
     child.sendcontrol("c")
     child.sendline()
     child.sendline("exit")
 
-    output = child.read().decode()
+    output = first_line + child.read().decode()
 
     if not child.terminate(force=True):
         raise Exception("Couldn't terminate application")
@@ -54,8 +66,7 @@ def read_arguments():
 
 
 def extract_suggestions_from_output(output, original_line_to_complete):
-    after_first_prompt = output[output.index("> "):]
-    without_next_prompt = after_first_prompt[:after_first_prompt.index("PROMPT-LINE")]
+    without_next_prompt = output[:output.index("PROMPT-LINE")]
     lines = without_next_prompt.splitlines()
     prompt_line = lines[0]
     suggestions = []
