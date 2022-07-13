@@ -2,4 +2,4 @@ FROM alpine:3.16.0@sha256:686d8c9dfa6f3ccfc8230bc3178d23f84eeaf7e457f36f271ab1ac
 
 RUN apk --no-cache add \
     bash==5.1.16-r2 \
-    git==2.36.1-r0
+    git==2.36.2-r0
