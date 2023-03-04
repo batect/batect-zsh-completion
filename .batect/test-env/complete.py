@@ -30,7 +30,7 @@ def main():
         },
         echo=False,
         timeout=5,
-        dimensions=(1000, 300)
+        dimensions=(1000, 700)
     )
 
     child.expect("PROMPT-LINE > ")
