@@ -3,7 +3,7 @@ FROM alpine:3.17.3@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc
 RUN apk --no-cache add \
     bash==5.2.15-r0 \
     zsh==5.9-r0 \
-    python3==3.10.11-r0 \
+    python3==3.11.3-r11 \
     py3-pip==22.3.1-r1 \
     util-linux==2.38.1-r1 # For uuidgen
 
