@@ -1,11 +1,11 @@
-FROM alpine:3.17.3@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
+FROM alpine:3.18.0@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
 
 RUN apk --no-cache add \
-    bash==5.2.15-r0 \
-    zsh==5.9-r0 \
-    python3==3.10.11-r0 \
-    py3-pip==22.3.1-r1 \
-    util-linux==2.38.1-r1 # For uuidgen
+    bash==5.2.15-r3 \
+    zsh==5.9-r2 \
+    python3==3.11.3-r11 \
+    py3-pip==23.1.2-r0 \
+    util-linux==2.38.1-r7 # For uuidgen
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
