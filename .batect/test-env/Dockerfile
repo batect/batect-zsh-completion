@@ -5,7 +5,7 @@ RUN apk --no-cache add \
     zsh==5.9-r0 \
     python3==3.10.11-r0 \
     py3-pip==22.3.1-r1 \
-    util-linux==2.38.1-r1 # For uuidgen
+    util-linux==2.38.1-r7 # For uuidgen
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
